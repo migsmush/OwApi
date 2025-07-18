@@ -5,20 +5,19 @@ import PackageDescription
 
 let package = Package(
     name: "OwApi",
+    platforms: [.macOS(.v12), .iOS(.v13), .watchOS(.v8), .tvOS(.v13)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
+        // Products define the executables and libraries a package produces, making them visible to other packages
         .library(
             name: "OwApi",
             targets: ["OwApi"]),
+        .executable(name: "OwApiExec", targets: ["OwApiExec"])
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "OwApi"),
-        .testTarget(
-            name: "OwApiTests",
-            dependencies: ["OwApi"]
-        ),
+            name: "OwApi", dependencies: []),
+        .executableTarget(name: "OwApiExec", dependencies: ["OwApi"]),
     ]
 )
