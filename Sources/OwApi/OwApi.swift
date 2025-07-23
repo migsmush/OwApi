@@ -23,6 +23,37 @@ public struct OwApi: Sendable {
         return fetchHeroesRes
     }
     
+    public func fetchPlayersByName(name: String) async throws -> PlayerSearchResponse? {
+        guard let url = urlForFetchPlayersByName(name: name) else { throw ApiServiceError.invalidURL }
+        let (data, statusCode): (PlayerSearchResponse, Int) = try await fetch(url: url)
+        return data
+    }
+    
+    public func fetchFullPlayerData(playerId: String, gameMode: String = "competitive", platform: String = "pc") async throws -> FullPlayerDataResponse? {
+        guard let url = urlForFullPlayerData(playerId: playerId, gameMode: gameMode, platform: platform) else { throw ApiServiceError.invalidURL }
+        let (data, statusCode): (FullPlayerDataResponse, Int) = try await fetch(url: url)
+        return data
+    }
+    
+    private func urlForFullPlayerData(playerId: String, gameMode: String, platform: String) -> URL? {
+        guard var urlComp = URLComponents(string: "\(baseUrl)/players/\(playerId)") else { return nil }
+        urlComp.queryItems = [
+            URLQueryItem(name: "gamemode", value: gameMode),
+            URLQueryItem(name: "platform", value: platform)
+        ]
+        
+        return urlComp.url
+    }
+    
+    private func urlForFetchPlayersByName(name: String) -> URL? {
+        guard var urlComp = URLComponents(string: "\(baseUrl)/players") else { return nil }
+        
+        urlComp.queryItems = [
+            URLQueryItem(name: "name", value: name)
+        ]
+        return urlComp.url
+    }
+    
     private func urlForFetchHeroes(locale: String = "en-us") -> URL? {
         guard var urlComp = URLComponents(string: "\(baseUrl)/heroes") else { return nil }
         
@@ -32,6 +63,8 @@ public struct OwApi: Sendable {
         
         return urlComp.url
     }
+    
+    
     
     private func fetch<D: Decodable>(url: URL) async throws -> (D, Int) {
         let (data, resp) = try await session.data(from: url)
