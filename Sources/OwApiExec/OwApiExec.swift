@@ -15,10 +15,10 @@ struct OwApiExec {
         do {
             let fetchPlayersByNameRes: PlayerSearchResponse? = try await api.fetchPlayersByName(name: "VinzAsian")
             print(fetchPlayersByNameRes ?? "")
-            if let fetchPlayerRes = fetchPlayersByNameRes, let firstPlayerId = fetchPlayerRes.results.first?.player_id {
-                let fullPlayerData: FullPlayerDataResponse? = try await api.fetchFullPlayerData(playerId: firstPlayerId)
-                print(fullPlayerData ?? "")
-            }
+//            if let fetchPlayerRes = fetchPlayersByNameRes, let firstPlayerId = fetchPlayerRes.results.first?.player_id {
+//                let fullPlayerData: FullPlayerDataResponse? = try await api.fetchFullPlayerData(playerId: firstPlayerId)
+//                print(fullPlayerData ?? "")
+//            }
         } catch {
             print(error.localizedDescription)
         }

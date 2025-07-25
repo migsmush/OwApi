@@ -24,6 +24,7 @@ public struct OwApi: Sendable {
     }
     
     public func fetchPlayersByName(name: String) async throws -> PlayerSearchResponse? {
+        print("fetchPlayersByName called with name \(name)")
         guard let url = urlForFetchPlayersByName(name: name) else { throw ApiServiceError.invalidURL }
         let (data, statusCode): (PlayerSearchResponse, Int) = try await fetch(url: url)
         return data
