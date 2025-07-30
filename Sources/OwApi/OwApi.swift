@@ -38,7 +38,7 @@ public struct OwApi: Sendable {
     
     public func fetchPlayerSummary(playerId: String) async throws -> PlayerSummary? {
         guard let url = urlForPlayerSummary(playerId: playerId) else { throw ApiServiceError.invalidURL }
-        let (data, statusCode): (PlayerSummaryResponse, Int) = try await fetch(url: url)
+        let (data, statusCode): (PlayerSummary, Int) = try await fetch(url: url)
         return data
     }
     
