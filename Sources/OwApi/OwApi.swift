@@ -36,6 +36,17 @@ public struct OwApi: Sendable {
         return data
     }
     
+    public func fetchPlayerSummary(playerId: String) async throws -> PlayerSummary? {
+        guard let url = urlForPlayerSummary(playerId: playerId) else { throw ApiServiceError.invalidURL }
+        let (data, statusCode): (PlayerSummaryResponse, Int) = try await fetch(url: url)
+        return data
+    }
+    
+    private func urlForPlayerSummary(playerId: String) -> URL? {
+        guard let url = URL(string: "\(baseUrl)/players/\(playerId)/summary") else { return nil }
+        return url
+    }
+    
     private func urlForFullPlayerData(playerId: String, gameMode: String, platform: String) -> URL? {
         guard var urlComp = URLComponents(string: "\(baseUrl)/players/\(playerId)") else { return nil }
         urlComp.queryItems = [
