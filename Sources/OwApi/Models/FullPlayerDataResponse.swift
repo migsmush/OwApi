@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct FullPlayerDataResponse: Decodable, Sendable {
+public struct FullPlayerDataResponse: Decodable, Sendable, Encodable {
     public let summary: PlayerSummary
     public let stats: PlayerStats
     
@@ -17,7 +17,7 @@ public struct FullPlayerDataResponse: Decodable, Sendable {
     }
 }
 
-public struct PlayerSummary: Decodable, Sendable {
+public struct PlayerSummary: Decodable, Sendable, Encodable {
     public let username: String
     public let avatar: String?
     public let namecard: String?
@@ -37,7 +37,7 @@ public struct PlayerSummary: Decodable, Sendable {
     }
 }
 
-public struct PlayerEndorsement: Decodable, Sendable {
+public struct PlayerEndorsement: Decodable, Sendable, Encodable {
     public let level: Int
     public let frame: String
     
@@ -47,7 +47,7 @@ public struct PlayerEndorsement: Decodable, Sendable {
     }
 }
 
-public struct PlayerCompetitiveStats: Decodable, Sendable {
+public struct PlayerCompetitiveStats: Decodable, Sendable, Encodable {
     public let pc: PlayerCompetitiveStatsSummary?
     public let console: PlayerCompetitiveStatsSummary?
     
@@ -57,7 +57,7 @@ public struct PlayerCompetitiveStats: Decodable, Sendable {
     }
 }
 
-public struct PlayerCompetitiveStatsSummary: Decodable, Sendable {
+public struct PlayerCompetitiveStatsSummary: Decodable, Sendable, Encodable {
     public let season: Int
     public let tank: CompetitiveRoleStats?
     public let damage: CompetitiveRoleStats?
@@ -73,7 +73,7 @@ public struct PlayerCompetitiveStatsSummary: Decodable, Sendable {
     }
 }
 
-public struct CompetitiveRoleStats: Decodable, Sendable {
+public struct CompetitiveRoleStats: Decodable, Sendable, Encodable {
     public let division: String
     public let tier: Int
     public let role_icon: String
@@ -89,7 +89,7 @@ public struct CompetitiveRoleStats: Decodable, Sendable {
     }
 }
 
-public struct PlayerStats: Decodable, Sendable {
+public struct PlayerStats: Decodable, Sendable, Encodable {
     public let pc: PlayerStatsSummary?
     public let console: PlayerStatsSummary?
     
@@ -99,7 +99,7 @@ public struct PlayerStats: Decodable, Sendable {
     }
 }
 
-public struct PlayerStatsSummary: Decodable, Sendable {
+public struct PlayerStatsSummary: Decodable, Sendable, Encodable {
     public let quickplay: GameModeStatsSummary?
     public let competitive: GameModeStatsSummary?
     
@@ -109,7 +109,7 @@ public struct PlayerStatsSummary: Decodable, Sendable {
     }
 }
 
-public struct GameModeStatsSummary: Decodable, Sendable {
+public struct GameModeStatsSummary: Decodable, Sendable, Encodable {
     public let heroes_comparisons: HeroComparisonStats?
     public let career_stats: CareerStats?
     
@@ -119,7 +119,7 @@ public struct GameModeStatsSummary: Decodable, Sendable {
     }
 }
 
-public struct HeroComparisonStats: Decodable, Sendable {
+public struct HeroComparisonStats: Decodable, Sendable, Encodable {
     public let time_played: HeroStatCategory?
     public let games_won: HeroStatCategory?
     public let win_percentage: HeroStatCategory?
@@ -171,7 +171,7 @@ public struct HeroComparisonStats: Decodable, Sendable {
     }
 }
 
-public struct HeroStatCategory: Decodable, Sendable {
+public struct HeroStatCategory: Decodable, Sendable, Encodable {
     public let label: String
     public let values: [HeroStatValue]
 
@@ -181,7 +181,7 @@ public struct HeroStatCategory: Decodable, Sendable {
     }
 }
 
-public struct HeroStatValue: Decodable, Sendable {
+public struct HeroStatValue: Decodable, Sendable, Encodable {
     public let hero: String
     public let value: Double
 
@@ -191,7 +191,7 @@ public struct HeroStatValue: Decodable, Sendable {
     }
 }
 
-public struct CareerStats: Decodable, Sendable {
+public struct CareerStats: Decodable, Sendable, Encodable {
     public let allHeroes: [CareerStatGroup]?
     public let heroes: [String: [CareerStatGroup]]
 
@@ -215,7 +215,7 @@ public struct CareerStats: Decodable, Sendable {
     }
 }
 
-public struct CareerStatGroup: Decodable, Sendable {
+public struct CareerStatGroup: Decodable, Sendable, Encodable {
     public let category: String
     public let label: String
     public let stats: [StatEntry]
@@ -227,7 +227,7 @@ public struct CareerStatGroup: Decodable, Sendable {
     }
 }
 
-public struct StatEntry: Decodable, Sendable {
+public struct StatEntry: Decodable, Sendable, Encodable {
     public let key: String
     public let label: String
     public let value: Double

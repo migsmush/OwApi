@@ -32,7 +32,7 @@ public struct PlayerSearchResponse: Decodable, Sendable {
     }
 }
 
-public struct PlayerSearchResult: Decodable, Sendable, Identifiable, Encodable {
+public struct PlayerSearchResult: Decodable, Sendable, Identifiable, Encodable, Equatable {
     public let id = UUID()
     public let player_id: String
     public let name: String

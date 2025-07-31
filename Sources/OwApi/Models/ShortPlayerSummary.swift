@@ -8,7 +8,7 @@
 import Foundation
 
 public struct ShortPlayerSummary: Decodable, Sendable, Identifiable {
-    let id = UUID()
+    public let id = UUID()
     public let username: String
     public let avatar: String?
     public let namecard: String?

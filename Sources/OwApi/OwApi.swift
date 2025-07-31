@@ -3,8 +3,15 @@ import FoundationNetworking
 #endif
 import Foundation
 
+public protocol IOwApi {
+    func fetchPlayersByName(name: String) async throws -> PlayerSearchResponse?
+    
+    func fetchFullPlayerData(playerId: String, gameMode: String, platform: String) async throws -> FullPlayerDataResponse?
+    
+    func fetchPlayerSummary(playerId: String) async throws -> PlayerSummary?
+}
 
-public struct OwApi: Sendable {
+public struct OwApi: Sendable, IOwApi {
     private let session = URLSession.shared
     private let jsonDecoder = {
         let decoder = JSONDecoder()
@@ -37,6 +44,7 @@ public struct OwApi: Sendable {
     }
     
     public func fetchPlayerSummary(playerId: String) async throws -> PlayerSummary? {
+        print("fetchPlayerSummary called with playerId \(playerId)")
         guard let url = urlForPlayerSummary(playerId: playerId) else { throw ApiServiceError.invalidURL }
         let (data, statusCode): (PlayerSummary, Int) = try await fetch(url: url)
         return data
