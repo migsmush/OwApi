@@ -7,6 +7,10 @@
 
 import Foundation
 
+public enum FetchStatus: Sendable, Decodable, Encodable {
+    case success, failure, loading
+}
+
 public struct FullPlayerDataResponse: Decodable, Sendable, Encodable {
     public let summary: PlayerSummary
     public let stats: PlayerStats
@@ -17,7 +21,8 @@ public struct FullPlayerDataResponse: Decodable, Sendable, Encodable {
     }
 }
 
-public struct PlayerSummary: Decodable, Sendable, Encodable {
+public struct PlayerSummary: Decodable, Sendable, Encodable, Identifiable {
+    public let id = UUID()
     public let username: String
     public let avatar: String?
     public let namecard: String?
@@ -25,8 +30,9 @@ public struct PlayerSummary: Decodable, Sendable, Encodable {
     public let endorsement: PlayerEndorsement?
     public let competitive: PlayerCompetitiveStats?
     public let last_updated_at: Date?
+    public var fetch_status: FetchStatus?
     
-    public init(username: String, avatar: String? = nil, namecard: String? = nil, title: String? = nil, endorsement: PlayerEndorsement? = nil, competitive: PlayerCompetitiveStats? = nil, last_updated_at: Date? = nil) {
+    public init(username: String, avatar: String? = nil, namecard: String? = nil, title: String? = nil, endorsement: PlayerEndorsement? = nil, competitive: PlayerCompetitiveStats? = nil, last_updated_at: Date? = nil, fetch_status: FetchStatus? = nil) {
         self.username = username
         self.avatar = avatar
         self.namecard = namecard
@@ -34,6 +40,7 @@ public struct PlayerSummary: Decodable, Sendable, Encodable {
         self.endorsement = endorsement
         self.competitive = competitive
         self.last_updated_at = last_updated_at
+        self.fetch_status = fetch_status
     }
 }
 
