@@ -188,7 +188,8 @@ public struct HeroStatCategory: Decodable, Sendable, Encodable {
     }
 }
 
-public struct HeroStatValue: Decodable, Sendable, Encodable {
+public struct HeroStatValue: Decodable, Sendable, Encodable, Identifiable, Hashable {
+    public let id = UUID()
     public let hero: String
     public let value: Double
 
